@@ -1,8 +1,10 @@
 let num1 = '';
 let num2 = '';
+let num = 0;
 let numA;
 let numB;
 let result;
+let result_1;
 let operator = '';
 let operation = '';
 
@@ -70,12 +72,17 @@ keysEl.forEach(key => {
 });
 
 function getNumberClick(keyText) {
-    if (operation === '') {
+    if (operation === '' && num1.length < 10) {
         num1 += keyText;
         viewerEl.textContent = num1;
-    } else {
+    } else if (operation === '') {
+        return num1;
+    } else if (num2.length < 10) {
         num2 += keyText;
+        num = num2;
         viewerEl.textContent = num2;
+    } else {
+        return num2;
     }
 }
 
@@ -129,13 +136,3 @@ function getOperatorClick(operator) {
     return operator;
 }
 
-function getEqualClick() {
-    numB = +num2;
-    operator = operation.slice(-1);
-    result = operate(operator, numA, numB);
-    viewerEl.textContent = result;
-    num1 = '';
-    num2 = '';
-    operation = '';
-    operator = '';
-}
